@@ -15,5 +15,13 @@ class FB_Post(models.Model):
 	fb_link = models.CharField(max_length=63)
 	fb_shortlink = models.CharField(max_length=31)
 	
-class Issue_Code(models.Model):
-	issue_name = models.
+class Issue(models.Model):
+	option_name = models.CharField(max_length=31)
+	option_code = models.CharField(max_length=3)
+	
+	
+class Subissue(models.Model):
+	issue = models.ForeignKey(Issue,on_delete=models.CASCADE)
+	option_name = models.CharField(max_length=31)
+	option_code = models.CharField(max_length=3)
+	                                                                                                                                                                                                                                                                                                                                                                                                    
