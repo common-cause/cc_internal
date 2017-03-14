@@ -1,5 +1,6 @@
 from django.db import models
 import requests
+from django.urls import reverse
 
 # Create your models here.
 	
@@ -43,11 +44,15 @@ class FB_Post(models.Model):
 	
 	@classmethod
 	def code_and_create(cls,geography,issue,subissue,post_type,post_date,alert_id):
-		posts_on_day = len(cls.filter(post_date=post_date))
+		posts_on_day = len(cls.objects.filter(post_date=post_date))
 		post_num_of_day = posts_on_day + 1
-		subsource = 'fb-' + post_date.isoformat() + '-' + '00'[0:2-len(str(post_num_of_day))] + (str(post_num_of_day)
+		subsource = 'fb-' + post_date.date().isoformat() + '-' + '00'[0:2-len(str(post_num_of_day))] + str(post_num_of_day)
 		fb_link = 'https://secure2.convio.net/comcau/site/Advocacy?cmd=display&page=UserAction&id=%s&s_src=%s&s_subsrc=%s' % (str(alert_id), str(alert_id), subsource)
-		fb_shortlink = requests.get('https://api-ssl.bit.ly/v3/shorten',params={'access_token' : '54af1938f5e34d66cfec2c1a734968389c00983d' 'format' : 'txt' 'longUrl' : fb_link}).text
+		fb_shortlink = requests.get('https://api-ssl.bit.ly/v3/shorten',params={'access_token' : '54af1938f5e34d66cfec2c1a734968389c00983d', 'format' : 'txt', 'longUrl' : fb_link}).text
 		return cls(geography=geography,issue=issue,subissue=subissue,post_type=post_type,post_date=post_date,alert_id=alert_id,post_num_of_day = post_num_of_day,subsource=subsource,fb_link=fb_link,fb_shortlink=fb_shortlink)
 		
+	def get_edit_url(self):
+		return reverse('facebook:editpost',args=[self.id])
 		
+	def get_absolute_url(self):
+		return reverse('facebook:postdetail',args=[self.id])

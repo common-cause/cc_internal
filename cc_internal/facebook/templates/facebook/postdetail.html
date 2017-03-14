@@ -1,9 +1,33 @@
+{% load staticfiles %}  
+<html>
+
+<head>
+<title>Common Cause Internal - View Facebook Post Details</title>
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="{% static 'css/facebook.css' %}">
+</head>
+<body>
+<div class="top">
 <h1>{{post.subsource}}<h1>
+</div>
+<div class="left">
+<ul>
+<li><a href="/facebook/">Index</a></li>
+<li><a href={{post.get_edit_url}}>Edit this post</a></li>
+<li><a href="/facebook/createpost">Create new</a></li>
+</div>
+</ul>
+
+<div class="main">
 <table>
 <tr><td>Geography</td><td>{{post.geography}}</td></tr>
 <tr><td>Issue</td><td>{{post.issue}}</td></tr>
 <tr><td>Subissue</td><td>{{post.subissue}}</td></tr>
 <tr><td>Link for use on facebook</td><td>{{post.fb_link}}</td></tr>
 <tr><td>Shortlink for use on facebook</td><td>{{post.fb_shortlink}}</td></tr>
+<tr><td>Link to post</td><td><a href ="{{post.link_to_post}}">{{post.link_to_post}}</a></td></tr>
 </table>
-	
+</div>
+<body>
+</html>

@@ -1,0 +1,13 @@
+<h1>EDIT {{post.subsource}}<h1>
+<form method='POST'>
+{%csrf_token%}
+<table>
+<tr><td>Geography</td><td>{{post.geography}}</td></tr>
+<tr><td>Issue</td><td>{{post.issue}}</td></tr>
+<tr><td>Subissue</td><td>{{post.subissue}}</td></tr>
+{{ form.as_table }}
+<tr><td>Link for use on facebook</td><td>{{post.fb_link}}</td></tr>
+<tr><td>Shortlink for use on facebook</td><td>{{post.fb_shortlink}}</td></tr>
+</table>
+<input type="submit" value="Submit">
+</form>
